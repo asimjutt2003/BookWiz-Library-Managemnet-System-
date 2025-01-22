@@ -1,0 +1,47 @@
+CREATE DATABASE LIBRARY;
+USE LIBRARY;
+CREATE TABLE Authors (
+  Author_id INT AUTO_INCREMENT PRIMARY KEY,
+  Name VARCHAR(255) UNIQUE
+);
+INSERT INTO Authors (Name) VALUES (NULL);
+
+CREATE TABLE Categories (
+  Category_id INT AUTO_INCREMENT PRIMARY KEY,
+  Name VARCHAR(255)	UNIQUE
+);
+INSERT INTO Categories (Name) VALUES (NULL);
+
+CREATE TABLE Books (
+  Book_id INT AUTO_INCREMENT PRIMARY KEY,
+  Title VARCHAR(255) UNIQUE,
+  Author_ID INT,
+  ISBN VARCHAR(20), 
+  Publisher VARCHAR(100),
+  Publication_Date DATE,
+  Category_ID INT,
+  FOREIGN KEY (Author_ID) REFERENCES Authors(Author_ID),
+  FOREIGN KEY (Category_ID) REFERENCES Categories(Category_ID)
+);
+INSERT INTO Books (Title, Author_ID, ISBN, Publication_Date, Category_ID)
+VALUES (NULL,NULL,NULL,NULL,NULL);
+
+CREATE TABLE Members (
+  Member_id INT AUTO_INCREMENT PRIMARY KEY,
+  Name VARCHAR(255) UNIQUE,
+  Email VARCHAR(100) UNIQUE,
+  Phone VARCHAR(20) UNIQUE,
+  Address VARCHAR(255) UNIQUE
+);
+INSERT INTO Members (Name,Email,Phone,Address) VALUES (NULL,NULL,NULL,NULL);
+
+CREATE TABLE Borrowings (
+  Borrowing_id INT AUTO_INCREMENT PRIMARY KEY,
+  Book_ID INT,
+  Member_ID INT,
+  Borrow_Date DATE,
+  Return_Date DATE,
+  FOREIGN KEY (Book_ID) REFERENCES Books(Book_ID),
+  FOREIGN KEY (Member_ID) REFERENCES Members(Member_ID)
+);
+INSERT INTO Borrowings (Book_ID,Member_ID,Borrow_Date,Return_Date) VALUES (NULL,NULL,NULL,NULL);
